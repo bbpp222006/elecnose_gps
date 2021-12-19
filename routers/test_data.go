@@ -1,28 +1,38 @@
 package routers
 
-// import (
-//     "github.com/gin-gonic/gin"
-//     "net/http"
-//     // "fmt"
-// )
+import (
+    "github.com/gin-gonic/gin"
+    "net/http"
+    // "fmt"
+)
 
-// type Login struct {
-// 	User     string `form:"user" json:"user" xml:"user"  binding:"required"`
-// 	Password string `form:"password" json:"password" xml:"password" binding:"required"`
-// }
+type Login struct {
+	Begin     int32 `json:"begin"   binding:"required"`
+	End int32 `json:"end" binding:"required"`
+	Interval int32 `json:"interval" binding:"required"`
+}
 
-// func TestDataHandler(c *gin.Context) {
-// 	var form Login
-// 	// This will infer what binder to use depending on the content-type header.
-// 	if err := c.ShouldBind(&form); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
+type Msg struct{
+	Name string
+	Message string
+	Number int
+}
 
-// 	if form.User != "manu" || form.Password != "123" {
-// 		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
-// 		return
-// 	}
+func TestDataHandler(c *gin.Context) {
+	var form Login
+	// This will infer what binder to use depending on the content-type header.
+	if err := c.ShouldBindJSON(&form); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-// 	c.JSON(http.StatusOK, gin.H{"status": "you are logged in"})
-// }
+	if form.Begin > form.End  {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "开始时间大于终止时间"})
+		return
+	}
+
+	var msg Msg
+	msg.Name = "root"
+	c.JSON(200,msg)
+	
+}
