@@ -10,6 +10,6 @@ import (
 func main() {
 	r := gin.Default()
 	routers.SetupRouter(r)
-	// Listen and serve on http://127.0.0.1:8080
-	r.Run(":8080")
+	// Listen and serve on http://127.0.0.1:8081
+	r.Run(":8081")
 }
