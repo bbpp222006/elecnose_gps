@@ -9,7 +9,7 @@ docker run  -d --name gps -p 18081:8081 varitia/elecnose_gps:latest
 
 ## 测试路径
 
-curl -X GET -i 'http://127.0.0.1:18081/test' --data '{"begin":1,"end":10,"interval":1}'
+curl -X POST -i 'http://127.0.0.1:18081/test' --data '{"begin":1,"end":10,"interval":1}'
 
 返回的都是随机值，返回三个地方坐标,分别是光电大楼，北京某高尔夫球场，深圳的老三和人才市场
 
